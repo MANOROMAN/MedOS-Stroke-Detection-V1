@@ -1,11 +1,7 @@
 <div align="center">
   <br />
-  <h1>MedOS Suite</h1>
+  <h1>MedOS Suite v1.0</h1>
   <h3>Next-Generation Neuro-Diagnostic System (NDS) | Automated Stroke Detection</h3>
-  <br />
-  <p>
-    <b>PYTHON 3.9+ &nbsp;|&nbsp; FLASK &nbsp;|&nbsp; PYTORCH &nbsp;|&nbsp; YOLO11 &nbsp;|&nbsp; MIT LICENSE</b>
-  </p>
   <br />
   <p>
     <a href="#about">About</a> &nbsp;•&nbsp;
@@ -97,6 +93,8 @@ This software is for **RESEARCH AND EDUCATIONAL PURPOSES ONLY**. It is not FDA/C
 
 <br />
 <div align="center">
-  <p>Developed by <strong>Yusuf GÜNEL</strong></p>
-  <p><a href="https://github.com/yusufgunel">GitHub Profile</a></p>
+  <p>Developed with ❤️ by <strong>AuroraLex Team</strong></p>
+  <a href="https://github.com/MANOROMAN">
+    <img src="https://img.shields.io/badge/GitHub-MANOROMAN-181717?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
 </div>
