@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedOS PACS View - Nöroloji</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Extra styles for overlay controls */
+        .overlay-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .color-dot.active {
+            border-color: var(--text-main);
+            transform: scale(1.2);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-switch.active::after {
+            left: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="navbar pacs-navbar">
+        <div style="display:flex; align-items:center; gap:20px;">
+            <a href="index.html"
+                style="color:var(--text-muted); font-size:0.9rem; display:flex; align-items:center; gap:5px; text-decoration:none;">
+                <i class="fa-solid fa-chevron-left"></i> Modüller
+            </a>
+            <a href="index.html"
+                style="font-weight: 600; color: var(--text-main); display:flex; align-items:center; gap:10px; text-decoration:none;">
+                <img src="assets/logo.png" style="height:24px;">
+                <span>MedOS PACS</span> <span style="color:var(--text-muted); font-weight:400;">| v4.2 Nöroloji</span>
+            </a>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:15px;">
+            <div style="font-size: 0.85rem; color: var(--text-muted);">
+                <i class="fa-solid fa-wifi"></i> Online
+            </div>
+            <button id="theme-toggle" class="theme-toggle" title="Temayı Değiştir">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="pacs-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div
+                style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 0.9rem; color: var(--text-main);">
+                AKTİF HASTA
+            </div>
+            <div
+                style="padding: 15px; border-bottom: 1px solid var(--border); background: var(--bg-card); border-left: 3px solid var(--primary);">
+                <div class="info-row"><span class="label">Ad:</span> <span class="val">Ahmet K.</span></div>
+                <div class="info-row"><span class="label">ID:</span> <span class="val">#48291-X</span></div>
+                <div class="info-row"><span class="label">Cinsiyet:</span> <span class="val">E / 58</span></div>
+                <div class="info-row"><span class="label">Mod:</span> <span class="val">BT (Axial)</span></div>
+                <div class="info-row"><span class="label">Tarih:</span> <span class="val">24.12.2025</span></div>
+            </div>
+        </div>
+
+        <!-- Center: Viewer -->
+        <div class="viewer">
+            <div class="toolbar">
+                <!-- Model Selector -->
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <!-- Icon Removed -->
+                    <select id="model-select" class="model-select" style="margin-bottom:0; width:auto;">
+                        <option value="default">Varsayılan Model</option>
+                        <option value="ensemble">Ensemble (Ortak Karar)</option>
+                        <option value="deeplab">DeepLabV3+ (Opt)</option>
+                        <option value="unet">U-Net (Standart)</option>
+                        <option value="yolo">YOLO11 (Hızlı)</option>
+                    </select>
+                </div>
+
+                <div style="width: 1px; height: 20px; background: var(--border);"></div>
+
+                <!-- OVERLAY CONTROLS -->
+                <div class="overlay-controls">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); margin-right:5px;">Görünüm:</span>
+                    <select id="mask-mode" class="model-select"
+                        style="margin:0; width:auto; padding:4px 8px; font-size:0.85rem; height:28px;">
+                        <option value="fill">Dolu Alan</option>
+                        <option value="outline">Sadece Çerçeve</option>
+                        <option value="none">Gizle</option>
+                    </select>
+
+                    <div style="width: 1px; height: 15px; background: var(--border); margin:0 8px;"></div>
+
+                    <div class="color-dot active" style="background:#ef4444;" data-color="#ef4444"></div>
+                    <div class="color-dot" style="background:#22c55e;" data-color="#22c55e"></div>
+                    <div class="color-dot" style="background:#3b82f6;" data-color="#3b82f6"></div>
+
+                    <div style="width: 1px; height: 15px; background: var(--border); margin:0 8px;"></div>
+                    <i id="glow-toggle" class="fa-regular fa-lightbulb"
+                        style="color: var(--text-muted); cursor: pointer;" title="Neon Modu"></i>
+                </div>
+
+                <div style="width: 1px; height: 20px; background: var(--border);"></div>
+
+                <!-- TOOLS -->
+                <button class="tool-btn" id="btn-pan" title="Kaydır"><i
+                        class="fa-solid fa-up-down-left-right"></i></button>
+
+                <!-- Pen Tool Wrapper (Unified Group) -->
+                <div id="draw-group" class="tool-btn"
+                    style="padding:0; display:flex; align-items:stretch; gap:0; border:1px solid transparent; position:relative;">
+                    <button id="btn-draw" title="Çiz"
+                        style="border:none; background:transparent; padding:6px 10px; color:inherit; cursor:pointer; flex:1;"><i
+                            class="fa-solid fa-pen"></i></button>
+                    <div style="width:1px; background:var(--border); margin:4px 0;"></div>
+                    <button id="btn-pen-opt" title="Kalem Rengi"
+                        style="border:none; background:transparent; padding:0 6px; color:inherit; cursor:pointer; font-size:10px; display:flex; align-items:center;"><i
+                            class="fa-solid fa-chevron-down"></i></button>
+
+                    <!-- Pen Palette -->
+                    <div id="pen-palette"
+                        style="display:none; position:absolute; top:110%; left:0; background:var(--bg-card); border:1px solid var(--border); padding:8px; border-radius:8px; gap:5px; flex-wrap:wrap; width:120px; z-index:1000; box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+                        <div class="pen-dot"
+                            style="width:20px; height:20px; border-radius:50%; background:#ef4444; border:2px solid #fff; cursor:pointer;"
+                            data-color="#ef4444"></div>
+                        <div class="pen-dot"
+                            style="width:20px; height:20px; border-radius:50%; background:#22c55e; border:1px solid var(--border); cursor:pointer;"
+                            data-color="#22c55e"></div>
+                        <div class="pen-dot"
+                            style="width:20px; height:20px; border-radius:50%; background:#3b82f6; border:1px solid var(--border); cursor:pointer;"
+                            data-color="#3b82f6"></div>
+                        <div class="pen-dot"
+                            style="width:20px; height:20px; border-radius:50%; background:#eab308; border:1px solid var(--border); cursor:pointer;"
+                            data-color="#eab308"></div>
+                        <div class="pen-dot"
+                            style="width:20px; height:20px; border-radius:50%; background:#ffffff; border:1px solid var(--border); cursor:pointer;"
+                            data-color="#ffffff"></div>
+                    </div>
+                </div>
+                <button class="tool-btn" id="btn-roi" title="Bölgesel Analiz (ROI)">
+                    <i class="fa-solid fa-crop-simple"></i>
+                </button>
+                <button class="tool-btn" id="btn-zoom-in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button class="tool-btn" id="btn-zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                <button class="tool-btn" id="btn-reset"><i class="fa-solid fa-rotate-left"></i></button>
+            </div>
+
+            <div id="drop-zone"
+                style="flex:1; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:#000;">
+                <div id="upload-instruction"
+                    style="text-align:center; color:#666; border: 2px dashed #333; padding:40px; border-radius:8px; z-index: 10;">
+                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>DICOM/Resim Yükle</p>
+                    <input type="file" id="file-input" hidden accept="image/*">
+                </div>
+
+                <!-- TRANSFORM LAYER -->
+                <div id="transform-layer"
+                    style="position:relative; transform-origin: center center; transition: transform 0.1s ease-out; display:flex; justify-content:center; align-items:center;">
+                    <img id="main-image" class="hidden" src="" alt="Scan"
+                        style="max-width:100%; max-height:100%; display:block; pointer-events: none;">
+                    <!-- Mask Canvas (AI) -->
+                    <canvas id="mask-canvas"
+                        style="position:absolute; top:0; left:0; pointer-events:none; opacity: 0.6; mix-blend-mode: screen;"></canvas>
+                    <!-- Draw Canvas (User) -->
+                    <canvas id="draw-canvas" style="position:absolute; top:0; left:0; pointer-events:none;"></canvas>
+                    <!-- ROI Selection Box -->
+                    <div id="roi-selection-box"
+                        style="position:absolute; border:2px dashed #0f0; background:rgba(0,255,0,0.1); display:none; pointer-events:none; z-index:100;">
+                    </div>
+                </div>
+
+                <!-- End of Viewer Area -->
+            </div>
+        </div>
+
+        <!-- Right: Results & History -->
+        <div class="result-panel" id="result-panel"
+            style="display:flex; flex-direction:column; gap:10px; overflow:hidden;">
+            <div
+                style="padding-bottom:10px; border-bottom:1px solid var(--border); font-weight:600; color:var(--text-main);">
+                ANALİZ GEÇMİŞİ
+            </div>
+
+            <!-- History / Thumbnail List -->
+            <div id="analysis-history"
+                style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding-right:5px;">
+                <!-- Thumbnails inject -->
+            </div>
+
+            <!-- Active Result Details -->
+            <div style="background:var(--bg-card); padding:10px; border-radius:8px; border:1px solid var(--border);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div style="font-size:0.8rem; font-weight:600; color:var(--text-main);">SEÇİLİ ANALİZ</div>
+                    <div id="view-label-small" style="font-size:0.7rem; color:var(--text-muted);">Ana Görüntü</div>
+                </div>
+
+                <div class="metric-box" style="margin-bottom:5px;">
+                    <div style="color:var(--text-muted); font-size:0.7rem;">PATOLOJİ</div>
+                    <div class="metric-val" style="color:var(--text-main); font-size:0.9rem;" id="pathology-res">--
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:5px;">
+                    <div class="metric-box" style="flex:1;">
+                        <div style="color:var(--text-muted); font-size:0.7rem;">RİSK</div>
+                        <div class="metric-val" style="color:var(--danger); font-size:1.1rem;" id="risk-res">--</div>
+                    </div>
+                    <div class="metric-box" style="flex:1;">
+                        <div style="color:var(--text-muted); font-size:0.7rem;">ALAN</div>
+                        <div class="metric-val" style="color:var(--primary); font-size:0.9rem;" id="area-res">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:auto;">
+                <button class="btn btn-primary" style="width:100%; padding:10px; border-radius:6px;">
+                    <i class="fa-solid fa-floppy-disk"></i> Kaydet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Init UI States
+        document.getElementById('mask-toggle').addEventListener('click', function () {
+            this.classList.toggle('active');
+            toggleMask(this.classList.contains('active'));
+        });
+    </script>
+</body>
+
+</html>

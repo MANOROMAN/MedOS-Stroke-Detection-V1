@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedOS Clinical - Giriş</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        /* LEFT: FORM */
+        .login-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            border-right: 1px solid var(--border);
+        }
+
+        .login-inner {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* RIGHT: VISUAL - REACTIVE TO THEME */
+        .visual-side {
+            flex: 1.2;
+            background-color: #0f172a;
+            /* Default Dark (Slate 900) */
+            background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        /* Light Theme Right Side Override */
+        [data-theme="light"] .visual-side {
+            background-color: #0284c7;
+            /* Brand Blue */
+            background-image: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+        }
+
+        .visual-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        /* UI Elements */
+        .brand-link {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .brand-link:hover {
+            opacity: 0.8;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--input-bg);
+            color: var(--text-main);
+            transition: 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* THEME TOGGLE POSITIONING */
+        .login-theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 20;
+        }
+
+        .login-theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(15deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <!-- LEFT: FORM -->
+        <div class="login-side">
+            <div class="login-inner">
+                <!-- CLICKABLE LOGO -->
+                <a href="index.html" class="brand-link">
+                    <img src="assets/logo.png" style="height: 36px;" alt="Logo">
+                    MedOS Clinical
+                </a>
+
+                <h1 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Giriş
+                    Yap</h1>
+                <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Prof. Dr. Yusuf GÜNEL olarak devam et.</p>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label class="input-label">Kullanıcı ID</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <input type="text" class="form-input" value="yusuf.gunel" readonly
+                                style="opacity: 0.8; background-color: var(--bg-body);">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Parola</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock" id="pass-icon"></i>
+                            <input type="password" class="form-input" value="12345678"
+                                onfocus="document.getElementById('pass-icon').style.color='var(--primary)'"
+                                onblur="document.getElementById('pass-icon').style.color='#94a3b8'">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-login">
+                        Güvenli Giriş <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                    </button>
+
+                    <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                        MedOS v4.2 &copy; 2025 - Tüm Hakları Saklıdır.
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT: THEME-AWARE VISUAL -->
+        <div class="visual-side">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="login-theme-toggle" title="Temayı Değiştir">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <div class="visual-pattern"></div>
+
+            <div style="position: relative; z-index: 2; max-width: 480px;">
+                <div
+                    style="margin-bottom: 2rem; display: inline-flex; padding: 10px; background: rgba(255,255,255,0.15); border-radius: 12px; backdrop-filter: blur(5px);">
+                    <i class="fa-solid fa-hospital" style="font-size: 24px;"></i>
+                </div>
+
+                <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2;">
+                    Yeni Nesil Klinik İşletim Sistemi.
+                </h2>
+
+                <div style="display: flex; flex-direction: column; gap: 15px; font-size: 1.05rem;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-check-circle" style="color: #6ee7b7;"></i>
+                        <span>Yapay Zeka Destekli Radyoloji</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-check-circle" style="color: #6ee7b7;"></i>
+                        <span>Entegre PACS Görünüleyicisi</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-check-circle" style="color: #6ee7b7;"></i>
+                        <span>Kurumsal Veri Güvenliği</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: absolute; bottom: 30px; left: 60px; font-size: 0.8rem; opacity: 0.6;">
+                System Status: <span style="color: #6ee7b7; font-weight: 600;">Operational</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-login');
+            btn.innerHTML = 'Doğrulanıyor...';
+            btn.style.opacity = '0.9';
+            setTimeout(() => { window.location.href = 'index.html'; }, 800);
+        }
+    </script>
+</body>
+
+</html>

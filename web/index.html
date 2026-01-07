@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedOS Clinical Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <img src="assets/logo.png" alt="MedOS Logo" style="height: 32px;">
+            <span>MedOS Clinical</span>
+        </a>
+
+        <div class="user-profile">
+            <div class="user-info">
+                <span class="user-name">Prof. Dr. Yusuf GÜNEL</span>
+                <span class="user-role">Başhekim, Radyoloji</span>
+            </div>
+            <div class="user-avatar">YG</div>
+
+            <!-- THEME TOGGLE -->
+            <button id="theme-toggle" class="theme-toggle" title="Temayı Değiştir" style="margin-left: 10px;">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <a href="login.html" title="Çıkış Yap" style="margin-left: 10px; color: var(--text-muted);"><i
+                    class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <div>
+                <h1 style="font-size: 1.5rem; margin-bottom: 5px;">Modül Seçimi</h1>
+                <p style="color: var(--text-muted);">Lütfen erişmek istediğiniz klinik modülü seçiniz.</p>
+            </div>
+            <div style="font-size: 0.875rem; color: var(--text-muted);">
+                <i class="fa-solid fa-server"></i> Server: EU-Central-1 (Aktif)
+            </div>
+        </div>
+
+        <div class="grid-system">
+            <!-- Nöroloji Modülü -->
+            <div class="module-card">
+                <div class="module-img" style="background-image: url('assets/doctor_feature.png');"></div>
+                <div class="module-body">
+                    <div style="margin-bottom: 10px;">
+                        <span class="badge badge-online">Online</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Nöroloji (Stroke AI)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex: 1;">
+                        BT görüntüleri üzerinden otomatik inme segmentasyonu ve hacim analizi.
+                    </p>
+                    <a href="stroke.html" class="btn-action btn-primary">
+                        Modüle Git
+                    </a>
+                </div>
+            </div>
+
+            <!-- Diş Modülü -->
+            <div class="module-card" style="opacity: 0.7;">
+                <div class="module-img"
+                    style="background-image: url('assets/dental_module.png'); filter: grayscale(100%);"></div>
+                <div class="module-body">
+                    <div style="margin-bottom: 10px;">
+                        <span class="badge badge-locked">Bakımda</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Diş Hekimliği</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex: 1;">
+                        Panoramik röntgenlerde anomali tespiti.
+                    </p>
+                    <div class="btn-action btn-disabled">Erişim Yok</div>
+                </div>
+            </div>
+
+            <!-- Kardiyoloji Modülü -->
+            <div class="module-card" style="opacity: 0.7;">
+                <div class="module-img"
+                    style="background-image: url('assets/cardio_module.png'); filter: grayscale(100%);"></div>
+                <div class="module-body">
+                    <div style="margin-bottom: 10px;">
+                        <span class="badge badge-locked">Geliştirme</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Kardiyoloji</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex: 1;">
+                        EKG analizi ve raporlama araçları.
+                    </p>
+                    <div class="btn-action btn-disabled">Hazırlanıyor</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

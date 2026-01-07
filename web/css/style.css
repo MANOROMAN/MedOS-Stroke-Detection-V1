@@ -1,0 +1,329 @@
+:root {
+    /* DEFAULT THEME: LIGHT (Enterprise) */
+    --bg-body: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-sidebar: #ffffff;
+    --bg-header: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #0284c7;
+    /* Corporate Blue */
+    --primary-hover: #0369a1;
+    --accent: #0f172a;
+    /* Slate 900 */
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --input-bg: #ffffff;
+}
+
+/* DARK THEME (Professional Medical/Neutral) - REFINED */
+[data-theme="dark"] {
+    --bg-body: #121212;
+    /* Pure Matte Dark (Material Standard) */
+    --bg-card: #1e1e1e;
+    /* Neutral Surface */
+    --bg-sidebar: #18181b;
+    /* Zinc 950 */
+    --bg-header: #18181b;
+    --text-main: #e4e4e7;
+    /* Zinc 200 (Off-white, less glare) */
+    --text-muted: #a1a1aa;
+    /* Zinc 400 */
+    --border: #27272a;
+    /* Zinc 800 */
+    --primary: #3b82f6;
+    /* Standard Royal Blue (Not Neon) */
+    --primary-hover: #2563eb;
+    --accent: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --input-bg: #27272a;
+}
+
+/* GLOBAL RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* UTILS */
+.hidden {
+    display: none !important;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--bg-card);
+}
+
+/* NAVBAR */
+.navbar {
+    height: 64px;
+    padding: 0 2rem;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* DASHBOARD GRID */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+    flex: 1;
+}
+
+.grid-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.module-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+}
+
+.module-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+}
+
+.module-img {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.module-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.badge-online {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+/* Green */
+.badge-locked {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+/* Orange */
+
+.btn-action {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    margin-top: auto;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-disabled {
+    background: var(--bg-body);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    cursor: not-allowed;
+}
+
+/* STROKE WORKSTATION (PACS) */
+.pacs-container {
+    display: flex;
+    height: calc(100vh - 64px);
+}
+
+.sidebar {
+    width: 300px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.viewer {
+    flex: 1;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="light"] .viewer {
+    background: #e2e8f0;
+}
+
+.toolbar {
+    height: 50px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.tool-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    outline: none; /* Remove focus ring */
+}
+
+.tool-btn:hover,
+.tool-btn.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.label {
+    color: var(--text-muted);
+}
+
+.val {
+    font-weight: 600;
+}
+
+/* RESULTS PANEL */
+.result-panel {
+    width: 280px;
+    background: var(--bg-sidebar);
+    border-left: 1px solid var(--border);
+    padding: 1rem;
+}
+
+.metric-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.metric-val {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Model Selector specific */
+.model-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
