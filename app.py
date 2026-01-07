@@ -23,7 +23,7 @@ REPORT_DIR = os.path.join(BASE_DIR, "reports")
 # Model Paths - Ensure these artifacts exist during deployment pipeline
 PATH_DEEPLAB = os.path.join(MODEL_DIR, "best_deeplabv3_final.pth")
 PATH_UNET = os.path.join(MODEL_DIR, "transfer_learning.pth")
-PATH_YOLO = os.path.join(MODEL_DIR, "best_yolo11.pt")
+PATH_YOLO = os.path.join(MODEL_DIR, "best_YOLO11m_Final.pt")
 
 IMG_SIZE = 512
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

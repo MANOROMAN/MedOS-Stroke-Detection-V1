@@ -63,7 +63,7 @@ pip install -r requirements.txt
 Due to their size, model weights are hosted separately. You must place the following files into the `models/` directory:
 - `best_deeplabv3_final.pth`
 - `transfer_learning.pth`
-- `best_yolo11.pt`
+- `best_YOLO11m_Final.pt`
 
 ### 4. Launch Application
 Start the inference server.
