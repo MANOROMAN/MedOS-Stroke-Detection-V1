@@ -62,7 +62,7 @@ pip install -r requirements.txt
 ### 3. Model Configuration (Critical)
 Due to their size, model weights are hosted separately. You must place the following files into the `models/` directory:
 - `best_deeplabv3_final.pth`
-- `best_attention_unet.pth`
+- `transfer_learning.pth`
 - `best_yolo11.pt`
 
 ### 4. Launch Application

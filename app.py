@@ -22,7 +22,7 @@ REPORT_DIR = os.path.join(BASE_DIR, "reports")
 
 # Model Paths - Ensure these artifacts exist during deployment pipeline
 PATH_DEEPLAB = os.path.join(MODEL_DIR, "best_deeplabv3_final.pth")
-PATH_UNET = os.path.join(MODEL_DIR, "best_attention_unet.pth")
+PATH_UNET = os.path.join(MODEL_DIR, "transfer_learning.pth")
 PATH_YOLO = os.path.join(MODEL_DIR, "best_yolo11.pt")
 
 IMG_SIZE = 512
