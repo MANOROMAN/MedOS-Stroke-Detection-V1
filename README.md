@@ -93,7 +93,7 @@ This software is for **RESEARCH AND EDUCATIONAL PURPOSES ONLY**. It is not FDA/C
 
 <br />
 <div align="center">
-  <p>Developed with ❤️ by <strong>AuroraLex Team</strong></p>
+  <p>Developed by <strong>Yusuf GÜNEL</strong></p>
   <a href="https://github.com/MANOROMAN">
     <img src="https://img.shields.io/badge/GitHub-MANOROMAN-181717?style=for-the-badge&logo=github" alt="GitHub">
   </a>
